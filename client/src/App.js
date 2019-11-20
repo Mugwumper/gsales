@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import EventsCull from "./pages/EventsCull";
-import Family from "./pages/Family";
+import VendorsPage from "./pages/Family";
 import ReportAnswerKey from "./pages/ReportAnswerKey";
 import ReportHandout from "./pages/ReportHandout";
 import Nav from "./components/Nav";
@@ -36,7 +36,7 @@ function App() {
           <div className="page__content-container">
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/login" component={Login} />          
-            <Route exact path="/add" component={Family} />
+            <Route exact path="/vendors" component={VendorsPage} />
             <Route extract path="/cull" component={EventsCull} /> 
             <Route exact path="/reportanswerkey" component={ReportAnswerKey} />
             <Route exact path="/reporthandout" component={ReportHandout} />

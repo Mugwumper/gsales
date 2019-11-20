@@ -8,8 +8,8 @@ function Nav() {
   // let localsetIsLogged = React.useContext(AuthContext).setIsLogged;
   return (
     <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-info">
-      <a className="navbar-brand" href="/add">
-        Family Reunion Helper
+      <a className="navbar-brand" href="/vendors">
+        Garage Sale Helper
       </a>
       <button
         className="navbar-toggler"
@@ -31,9 +31,9 @@ function Nav() {
             {isLogged ? null : <NavLink className="Nav_link" to="/login">Login</NavLink>}
           </li>
           <li className="nav-item">
-            <NavLink className="Nav_link" to="/add">Family</NavLink>
+            <NavLink className="Nav_link" to="/vendors">Vendors</NavLink>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <NavLink className="Nav_link" to="/cull">Cull Events</NavLink>
           </li>
           <li className="nav-item dropdown">
@@ -56,7 +56,7 @@ function Nav() {
               <br></br>
               <NavLink className="Nav_link_drop" to="/reporthandout">Report Handout</NavLink>
             </div>
-          </li>
+          </li> */}
           {isLogged ? (
             <form className="form-inline">
               <button

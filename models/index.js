@@ -1,5 +1,5 @@
 module.exports = {
-  Family: require("./Family"),
+  Vendors: require("./Vendors"),
   Events: require("./Events"),
   Users: require("./Users")
 };

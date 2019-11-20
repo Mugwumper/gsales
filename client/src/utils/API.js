@@ -1,6 +1,13 @@
 import axios from "axios";
 
 export default {
+  getVendors: function(userEmail) {
+    return axios.post("/api/vendors/getvendors", userEmail);
+  },
+
+///////////////////////////////////////////////////////////////
+//////////// not sure the ones below are needed ///////////////
+///////////////////////////////////////////////////////////////
   // Gets all family members
   getFamily: function(userEmail) {
     return axios.post("/api/family/getfamily", userEmail);

@@ -66,7 +66,29 @@ module.exports = {
     } else {
       res = "unable to function without defined currectUserId";
     }
+  },
+  getvendors: function(req, res) { // untested
+    // only list the people (name, bday, _id)
+    console.log("userController.getfamily called");
+    if (currentUserId) {
+      db.Users
+      .find({ _id: ObjectId(currentUserId) }, 
+        'family name birthday')
+      .then(function (doc) {
+        var myFamily = [];
+        // get the first (only) element of the array
+        doc[0].family.map(person => (
+          // for each family member...
+          myFamily.push(person)
+        ));
+        res.json(savedEvents);
+      })
+      .catch(err => res.status(422).json(err))
+    } else {
+      res = "unable to function without defined currectUserId";
+    }
   }  
+  
 }
 
 

@@ -1,26 +1,26 @@
 const db = require("../models");
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
 
-// Defining methods for the familyController
+// Defining methods for the vendorController
 module.exports = {
   findAll: function(req, res) {
-    db.Family
+    db.Vendors
       .find(req.query)
       .sort({ birthday: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   findById: function(req, res) {
-    db.Family
+    db.Vendors
       .findById(req.params.id)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
-    console.log("familyController.create called");
+    console.log("vendorController.create called");
     console.log(req.body);
     //userEmail = req.body.userEmail;
-    db.Family
+    db.Vendors
       .create(req.body)
       .then(function (doc) {
         db.Users.findOneAndUpdate(
@@ -40,20 +40,21 @@ module.exports = {
       .catch(err => console.log(err));
   },  
   update: function(req, res) {
-    db.Family
+    db.Vendors
       .findOneAndUpdate({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   remove: function(req, res) {
-    db.Family
+    db.Vendors
       .findById({ _id: req.params.id })
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  getFamily: function(req, res) {
-    console.log("familyController.getFamily called");
+ 
+  getVendors: function(req, res) {
+    console.log("vendorController.getVendors called");
     console.log(req.body.email);
     db.Users
       .find({ email: req.body.email }, 
@@ -64,7 +65,7 @@ module.exports = {
   delete: function(req, res) {
     console.log("familyController.delete called");
     console.log(req.body);
-    db.Family
+    db.Vendors
       //.findById({ _id: mongoose.Types.ObjectId(req.body.id) })
       .findById({ _id: req.body.id })
       .then(dbModel => dbModel.remove())

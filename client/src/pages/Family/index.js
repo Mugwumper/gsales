@@ -15,49 +15,41 @@ const INITIAL_STATE = {
   birthday: ""
 };
 
-function FamilyAdd() {
+function VendorsPage() {
   let localIsLogged = React.useContext(AuthContext).isLogged;
   console.log("localIsLogged: "+localIsLogged);
   const [people, setPeople] = React.useState([]);
   const [values, setValues] = React.useState(INITIAL_STATE);
 
-  React.useEffect(() => {
-    console.log("React.useEffect for family page called..");
-    console.log("userEmail: " + userEmail);
-    if (userEmail) loadFamily();
-  }, [values.name, values.birthday]);
-
+  // React.useEffect(() => {
+  //   console.log("React.useEffect for family page called..");
+  //   console.log("userEmail: " + userEmail);
+  //   if (userEmail) loadVendors();
+  // }, [values.name, values.birthday]);
 
   React.useEffect(() => {
     console.log("new useEffect called");
-    if (userEmail) loadFamily();
+    if (userEmail) loadVendors();
   }, [localIsLogged]);
 
-  function loadFamily() {
-    console.log("loadFamily called");
-    API.getFamily({ email: fb.auth().currentUser.providerData[0].email })
+  function loadVendors() {
+    const fbEmail = fb.auth().currentUser.providerData[0].email
+    console.log("loadVendors called with email: '"+fbEmail+"'");
+    API.getVendors({ email:  fbEmail})
       .then(res =>
         { setPeople(res.data[0].family);
-          console.log( res.data[0].family );
+          //console.log("res.data:" + res.data[0] );
+          console.log( res.data );
           console.log( people );
-      }
+        }
       )
       .catch(err => console.log(err));
   };
 
-  function deleteFamily(id) {
+  function deleteVendor(id) {
     API.deleteFamily({ 
       email: fb.auth().currentUser.providerData[0].email,
       id: id    
-    })
-    .then(res => this.loadFamily())
-    .catch(err => console.log(err));
-  };
-  
-  function collectEvents(event) {
-    event.preventDefault();
-    API.scrapeFamily({
-      email: fb.auth().currentUser.providerData[0].email
     })
     .then(res => this.loadFamily())
     .catch(err => console.log(err));
@@ -79,8 +71,7 @@ function FamilyAdd() {
         birthday: values.birthday
       })
         .then(res => {
-          this.loadFamily();
-          this.collectEvents();
+          this.loadVendors();
         })
         .catch(err => console.log(err));
     }
@@ -91,7 +82,7 @@ function FamilyAdd() {
     <Row>
       <Col size="md-12">
         <Jumbotron>
-          <h1>Add Family Members</h1>
+          <h1>Add Vendors</h1>
         </Jumbotron>
         <form>
           <Input
@@ -105,38 +96,28 @@ function FamilyAdd() {
             placeholder="Birthday in ISO 8601 date format (required)"
           />
           <FormBtn
-            //disabled={!(state.name && state.birthday)} // temp commenting, get this back in play!
             onClick={handleFormSubmit}
           >
-            Add Family Member
+            Add Vendor
           </FormBtn>
         </form>
         <br></br><br></br><br></br>
-        <div className="collectEvents">
-          <form onSubmit={collectEvents}>
-            {people.length ? (
+        <div className="unnamed">
+          <form>
+            {/* {people.length ? (
               <List>
                 {people.map(person => (
                   <ListItem key={person._id}>
                       <strong>
                         {person.name} - {person.birthday}
                       </strong>
-                    <DeleteBtn onClick={() => deleteFamily(person._id)} />
+                    <DeleteBtn onClick={() => deleteVendor(person._id)} />
                   </ListItem>
                 ))}
               </List>
             ) : (
               <h3>No Results to Display</h3>
-            )}
-            <div style={getStyle_CollectEventsButton}>
-              <FormBtn 
-                //disbled={people.length === 0}
-                disbled="false"
-                type="submit" 
-              >
-                Collect Events
-              </FormBtn>
-            </div>
+            )} */}
           </form>
         </div>
       </Col>
@@ -146,8 +127,4 @@ function FamilyAdd() {
 }
 
 
-const getStyle_CollectEventsButton = {
-  margin: "1em 0 0 0.25em",
- }
-
-export default FamilyAdd;
+export default VendorsPage;
