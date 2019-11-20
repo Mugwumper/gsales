@@ -15,7 +15,7 @@ const INITIAL_STATE = {
   birthday: ""
 };
 
-function FamilyAdd() {
+function VendorAdd() {
   let localIsLogged = React.useContext(AuthContext).isLogged;
   console.log("localIsLogged: "+localIsLogged);
   const [people, setPeople] = React.useState([]);
@@ -24,17 +24,17 @@ function FamilyAdd() {
   React.useEffect(() => {
     console.log("React.useEffect for family page called..");
     console.log("userEmail: " + userEmail);
-    if (userEmail) loadFamily();
+    if (userEmail) loadVendor();
   }, [values.name, values.birthday]);
 
 
   React.useEffect(() => {
     console.log("new useEffect called");
-    if (userEmail) loadFamily();
+    if (userEmail) loadVendor();
   }, [localIsLogged]);
 
-  function loadFamily() {
-    console.log("loadFamily called");
+  function loadVendor() {
+    console.log("loadVendor called");
     API.getFamily({ email: fb.auth().currentUser.providerData[0].email })
       .then(res =>
         { setPeople(res.data[0].family);
@@ -50,7 +50,7 @@ function FamilyAdd() {
       email: fb.auth().currentUser.providerData[0].email,
       id: id    
     })
-    .then(res => this.loadFamily())
+    .then(res => this.loadVendor())
     .catch(err => console.log(err));
   };
   
@@ -64,14 +64,13 @@ function FamilyAdd() {
   function handleFormSubmit(event) {
     event.preventDefault();
     if (values.name && values.birthday) {
-      API.saveFamily({
+      API.saveVendor({
         userEmail: fb.auth().currentUser.providerData[0].email,
         name: values.name,
         birthday: values.birthday
       })
         .then(res => {
-          this.loadFamily();
-          this.collectEvents();
+          this.loadVendor();
         })
         .catch(err => console.log(err));
     }
@@ -96,7 +95,6 @@ function FamilyAdd() {
             placeholder="Birthday in ISO 8601 date format (required)"
           />
           <FormBtn
-            //disabled={!(state.name && state.birthday)} // temp commenting, get this back in play!
             onClick={handleFormSubmit}
           >
             Add Family Member
@@ -127,4 +125,4 @@ function FamilyAdd() {
   )
 }
 
-export default FamilyAdd;
+export default VendorAdd;
