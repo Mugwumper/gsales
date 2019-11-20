@@ -7,7 +7,7 @@ const db = require("../models");
 
 mongoose.connect(
   process.env.MONGODB_URI ||
-  "mongodb://localhost/gsale"
+  "mongodb://localhost/familyreunion"
 );
 
 const id1 = new mongoose.Types.ObjectId("5d98c9ab073a76c86a562654");
