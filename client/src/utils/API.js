@@ -7,7 +7,7 @@ export default {
   },
   // Gets all family members
   getVendor: function(userEmail) {
-    return axios.post("/api/family/getvendor", userEmail);
+    return axios.post("/api/vendor/getvendors", userEmail);
   },
   // Gets the familymember with the given id
   getFamilyMember: function(id) {
@@ -17,7 +17,6 @@ export default {
   deleteFamily: function(familyData) {
     return axios.post("/api/family/delete", familyData);
   },
-
   saveFamily: function(familyData) {
     return axios.post("/api/family", familyData);
   },
