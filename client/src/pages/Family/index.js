@@ -91,7 +91,7 @@ function FamilyAdd() {
     <Row>
       <Col size="md-12">
         <Jumbotron>
-          <h1>Add Family Members</h1>
+          <h1>Add Vendors</h1>
         </Jumbotron>
         <form>
           <Input

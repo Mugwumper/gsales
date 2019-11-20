@@ -9,7 +9,7 @@ function Nav() {
   return (
     <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-info">
       <a className="navbar-brand" href="/add">
-        Family Reunion Helper
+        Garage Sale Helper
       </a>
       <button
         className="navbar-toggler"
