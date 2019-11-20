@@ -45,19 +45,10 @@ function FamilyAdd() {
       .catch(err => console.log(err));
   };
 
-  function deleteFamily(id) {
+  function deleteVendor(id) {
     API.deleteFamily({ 
       email: fb.auth().currentUser.providerData[0].email,
       id: id    
-    })
-    .then(res => this.loadFamily())
-    .catch(err => console.log(err));
-  };
-  
-  function collectEvents(event) {
-    event.preventDefault();
-    API.scrapeFamily({
-      email: fb.auth().currentUser.providerData[0].email
     })
     .then(res => this.loadFamily())
     .catch(err => console.log(err));
@@ -113,7 +104,7 @@ function FamilyAdd() {
         </form>
         <br></br><br></br><br></br>
         <div className="collectEvents">
-          <form onSubmit={collectEvents}>
+          <form>
             {people.length ? (
               <List>
                 {people.map(person => (
@@ -121,22 +112,13 @@ function FamilyAdd() {
                       <strong>
                         {person.name} - {person.birthday}
                       </strong>
-                    <DeleteBtn onClick={() => deleteFamily(person._id)} />
+                    <DeleteBtn onClick={() => deleteVendor(person._id)} />
                   </ListItem>
                 ))}
               </List>
             ) : (
               <h3>No Results to Display</h3>
             )}
-            <div style={getStyle_CollectEventsButton}>
-              <FormBtn 
-                //disbled={people.length === 0}
-                disbled="false"
-                type="submit" 
-              >
-                Collect Events
-              </FormBtn>
-            </div>
           </form>
         </div>
       </Col>
@@ -144,10 +126,5 @@ function FamilyAdd() {
   </Container>
   )
 }
-
-
-const getStyle_CollectEventsButton = {
-  margin: "1em 0 0 0.25em",
- }
 
 export default FamilyAdd;
