@@ -35,7 +35,7 @@ function VendorAdd() {
 
   function loadVendor() {
     console.log("loadVendor called");
-    API.getFamily({ email: fb.auth().currentUser.providerData[0].email })
+    API.getVendor({ email: fb.auth().currentUser.providerData[0].email })
       .then(res =>
         { setPeople(res.data[0].family);
           console.log( res.data[0].family );

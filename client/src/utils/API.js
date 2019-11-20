@@ -5,6 +5,10 @@ export default {
   getFamily: function(userEmail) {
     return axios.post("/api/family/getfamily", userEmail);
   },
+  // Gets all family members
+  getVendor: function(userEmail) {
+    return axios.post("/api/family/getvendor", userEmail);
+  },
   // Gets the familymember with the given id
   getFamilyMember: function(id) {
     return axios.get("/api/family/" + id);

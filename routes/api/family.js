@@ -27,10 +27,14 @@ router // dead?
   .route("/login")
   .post(userController.findByEmail);
 
-router 
+  router 
   .route("/getfamily")
   .post(familyController.getFamily);
-  
+ 
+router 
+  .route("/getvendor")
+  .post(familyController.getFamily);
+ 
 // Matches with "/api/family/delete"
 router 
 .route("/delete")
