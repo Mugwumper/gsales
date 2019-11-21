@@ -7,7 +7,12 @@ const vendorsController = require("../../controllers/vendorsController");
   // .route("/getfamily")
   // .post(familyController.getFamily);
  
-  router.route("/getvendors").post(vendorsController.getVendor);
+  router.route("/getvendors")
+    .post(vendorsController.getVendor);
   
+// Matches with "/api/family"
+router.route("/")
+  .get(vendorsController.findAll)
+  .post(vendorsController.create);
 
 module.exports = router;

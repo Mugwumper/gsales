@@ -20,6 +20,9 @@ export default {
   saveFamily: function(familyData) {
     return axios.post("/api/family", familyData);
   },
+  saveVendor: function(vendorData) {
+    return axios.post("/api/vendor", vendorData);
+  },
   login: function(userData) {
     console.log("API sees login...");
     console.log(userData); 

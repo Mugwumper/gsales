@@ -63,11 +63,10 @@ function VendorAdd() {
   
   function handleFormSubmit(event) {
     event.preventDefault();
-    if (values.name && values.birthday) {
+    if (values.name) {
       API.saveVendor({
         userEmail: fb.auth().currentUser.providerData[0].email,
-        name: values.name,
-        birthday: values.birthday
+        name: values.name
       })
         .then(res => {
           this.loadVendor();
@@ -88,11 +87,6 @@ function VendorAdd() {
             onChange={handleInputChange}
             name="name"
             placeholder="Name (required)"
-          />
-          <Input
-            onChange={handleInputChange}
-            name="birthday"
-            placeholder="Birthday in ISO 8601 date format (required)"
           />
           <FormBtn
             onClick={handleFormSubmit}

@@ -31,31 +31,7 @@ function Nav() {
             {isLogged ? null : <NavLink className="Nav_link" to="/login">Login</NavLink>}
           </li>
           <li className="nav-item">
-            <NavLink className="Nav_link" to="/add">Family</NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="Nav_link" to="/cull">Cull Events</NavLink>
-          </li>
-          <li className="nav-item dropdown">
-            <a
-              className="nav-link dropdown-toggle"
-              href="/"
-              id="navbarDropdownMenuLink"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Reports
-            </a>
-            <div
-              className="dropdown-menu"
-              aria-labelledby="navbarDropdownMenuLink"
-            >
-              <NavLink className="Nav_link_drop" to="/reportanswerkey">Report Answer Key</NavLink>
-              <br></br>
-              <NavLink className="Nav_link_drop" to="/reporthandout">Report Handout</NavLink>
-            </div>
+            <NavLink className="Nav_link" to="/add">Vendors</NavLink>
           </li>
           {isLogged ? (
             <form className="form-inline">
