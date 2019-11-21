@@ -1,7 +1,5 @@
 const router = require("express").Router();
 const familyController = require("../../controllers/familyController");
-const scrapeController = require("../../controllers/scrapeController");
-const scrapeControllerNYT = require("../../controllers/scrapeControllerNYT");
 const userController = require("../../controllers/userController");
 
 // Matches with "/api/family"
@@ -15,12 +13,6 @@ router
   .get(familyController.findById)
   .put(familyController.update)
   .delete(familyController.remove);
-
-// Matches with "/api/family/scrape"
-router
-  .route("/scrape")
-//  .post(scrapeController.scraper);
-  .post(scrapeControllerNYT.scraper);
 
 // Matches with "/api/family/login"
 router // dead?
