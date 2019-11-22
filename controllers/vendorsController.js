@@ -55,11 +55,11 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   getVendor: function(req, res) {
-    console.log("familyController.getVendor called");
+    console.log("vendorController.getVendor called");
     console.log(req.body.email);
-    db.Users.find({ email: req.body.email }, "family name birthday")
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    db.Users.find({ email: req.body.email })
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
   },
   delete: function(req, res) {
     console.log("vendorsController.delete called");

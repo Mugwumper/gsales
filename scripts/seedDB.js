@@ -25,7 +25,7 @@ const userSeed = [
     _id : id1,    
     email : "crystal@bell.com",
     password : "1234567",
-    family : [ 
+    vendors : [ 
       fam1, 
       fam2,
       fam3,
