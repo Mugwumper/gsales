@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const familyController = require("../../controllers/familyController");
 const vendorsController = require("../../controllers/vendorsController");
 
 
@@ -14,5 +13,10 @@ const vendorsController = require("../../controllers/vendorsController");
 router.route("/")
   .get(vendorsController.findAll)
   .post(vendorsController.create);
+
+// Matches with "/api/vendors/delete"
+router 
+  .route("/delete")
+  .post(vendorsController.delete);
 
 module.exports = router;

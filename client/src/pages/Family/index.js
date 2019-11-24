@@ -21,36 +21,29 @@ function VendorAdd() {
   const [people, setPeople] = React.useState([]);
   const [values, setValues] = React.useState(INITIAL_STATE);
 
-  React.useEffect(() => {
-    console.log("React.useEffect for family page called..");
-    console.log("userEmail: " + userEmail);
-    if (userEmail) loadVendor();
-  }, [values.name, values.birthday]);
-
 
   React.useEffect(() => {
     console.log("new useEffect called");
-    if (userEmail) loadVendor();
+    if (userEmail) loadVendors();
   }, [localIsLogged]);
 
-  function loadVendor() {
+  function loadVendors() {
     console.log("loadVendor called");
     API.getVendor({ email: fb.auth().currentUser.providerData[0].email })
       .then(res =>
         { setPeople(res.data[0].vendors);
           console.log( res.data[0].vendors );
-          console.log( people );
-      }
+        }
       )
       .catch(err => console.log(err));
   };
 
   function deleteVendor(id) {
-    API.deleteFamily({ 
+    API.deleteVendor({ 
       email: fb.auth().currentUser.providerData[0].email,
       id: id    
     })
-    .then(res => this.loadVendor())
+    .then(res => loadVendors())
     .catch(err => console.log(err));
   };
   
@@ -68,9 +61,8 @@ function VendorAdd() {
         userEmail: fb.auth().currentUser.providerData[0].email,
         name: values.name
       })
-        .then(res => {
-          this.loadVendor();
-        })
+        .then(loadVendors())         
+        .then(setValues(values.name = ''))
         .catch(err => console.log(err));
     }
   };  
@@ -102,7 +94,7 @@ function VendorAdd() {
                 {people.map(person => (
                   <ListItem key={person._id}>
                       <strong>
-                        {person.name} - {person.birthday}
+                        {person.name}
                       </strong>
                     <DeleteBtn onClick={() => deleteVendor(person._id)} />
                   </ListItem>

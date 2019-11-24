@@ -5,23 +5,22 @@ export default {
   getFamily: function(userEmail) {
     return axios.post("/api/family/getfamily", userEmail);
   },
-  // Gets all family members
+  // Gets all vendors
   getVendor: function(userEmail) {
-    return axios.post("/api/vendor/getvendors", userEmail);
+    return axios.post("/api/vendors/getvendors", userEmail);
   },
   // Gets the familymember with the given id
   getFamilyMember: function(id) {
     return axios.get("/api/family/" + id);
   },
-  // Deletes the book with the given id
-  deleteFamily: function(familyData) {
-    return axios.post("/api/family/delete", familyData);
+  deleteVendor: function(vendorData) {
+    return axios.post("/api/vendors/delete", vendorData);
   },
   saveFamily: function(familyData) {
     return axios.post("/api/family", familyData);
   },
   saveVendor: function(vendorData) {
-    return axios.post("/api/vendor", vendorData);
+    return axios.post("/api/vendors", vendorData);
   },
   login: function(userData) {
     console.log("API sees login...");

@@ -21,17 +21,14 @@ module.exports = {
       .then(function(doc) {
         db.Users.findOneAndUpdate(
           { email: req.body.userEmail },
-          { $push: { family: doc._id } }
+          { $push: { vendors: doc._id }, 
+          new: true }
         )
-          .then(function(dbVen) {
-            console.log(dbVen);
-          })
-          .catch(function(err) {
-            console.log(err);
-          });
-
-        doc => res.json(doc);
-      })
+        .then(dbModel => res.json(dbModel))
+        .catch(function(err) {
+          console.log(err);
+        });
+          doc => res.json(doc);     })
       .catch(err => console.log(err));
   },
 
@@ -57,7 +54,7 @@ module.exports = {
   getVendor: function(req, res) {
     console.log("vendorController.getVendor called");
     console.log(req.body.email);
-    db.Users.find({ email: req.body.email })
+    db.Users.find({ email: req.body.email }, "vendors name")
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
   },
@@ -72,7 +69,8 @@ module.exports = {
       .then(function(doc) {
         db.Users.findOneAndUpdate(
           { email: req.body.userEmail },
-          { $pull: { family: doc._id } }
+          { $pull: { vendors: doc._id }, 
+            new: true }
         )
           .then(function(dbVen) {
             console.log(dbVen);
