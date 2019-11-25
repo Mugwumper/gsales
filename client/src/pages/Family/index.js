@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import Jumbotron from "../../components/Jumbotron";
 import DeleteBtn from "../../components/DeleteBtn";
 import API from "../../utils/API";
@@ -10,105 +10,104 @@ import { fb } from "../../utils/firebase";
 import { AuthContext } from "../../App";
 import "./style.css";
 
-const INITIAL_STATE = {
-  name: "",
-  birthday: ""
-};
+const INITIAL_STATE = { vendorName: "" };
 
 function VendorAdd() {
   let localIsLogged = React.useContext(AuthContext).isLogged;
-  console.log("localIsLogged: "+localIsLogged);
+  console.log("localIsLogged: " + localIsLogged);
   const [people, setPeople] = React.useState([]);
-  const [values, setValues] = React.useState(INITIAL_STATE);
-
+  const [vendorName, setVendorName] = React.useState('');
 
   React.useEffect(() => {
-    console.log("new useEffect called");
+    console.log("useEffect for localIsLogged called...");
     if (userEmail) loadVendors();
   }, [localIsLogged]);
 
   function loadVendors() {
     console.log("loadVendor called");
     API.getVendor({ email: fb.auth().currentUser.providerData[0].email })
-      .then(res =>
-        { setPeople(res.data[0].vendors);
-          console.log( res.data[0].vendors );
-        }
-      )
+      .then(res => {
+        setPeople(res.data[0].vendors);
+        console.log(res.data[0].vendors);
+      })
       .catch(err => console.log(err));
-  };
+  }
 
   function deleteVendor(id) {
-    API.deleteVendor({ 
+    API.deleteVendor({
       email: fb.auth().currentUser.providerData[0].email,
-      id: id    
+      id: id
     })
-    .then(res => loadVendors())
-    .catch(err => console.log(err));
-  };
-  
+      .then(loadVendors())
+      .catch(err => console.log(err));
+  }
+
   function handleInputChange(event) {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
+      setVendorName(event.target.value);
   };
-  
+
+  function clearForm(event) {
+    setVendorName('');
+  }
+
+  // create a new vendor
   function handleFormSubmit(event) {
     event.preventDefault();
-    if (values.name) {
+    if (vendorName) {
       API.saveVendor({
         userEmail: fb.auth().currentUser.providerData[0].email,
-        name: values.name
+        name: vendorName
       })
-        .then(loadVendors())         
-        .then(setValues(values.name = ''))
+        .then(loadVendors())
+        .then(clearForm)
         .catch(err => console.log(err));
     }
-  };  
+    // console.log(values);  // reports {name: somename}
+    // setValues(INITIAL_STATE); // should be {name: ''}
+    // console.log(values); // reports {name: somename}
+    // setValues(values.name = '');
+    // console.log(values); // reports {name: ''}
+  }
 
   return (
     <Container fluid>
-    <Row>
-      <Col size="md-12">
-        <Jumbotron>
-          <h1>Add Vendors</h1>
-        </Jumbotron>
-        <form>
-          <Input
-            onChange={handleInputChange}
-            name="name"
-            placeholder="Name (required)"
-          />
-          <FormBtn
-            onClick={handleFormSubmit}
-          >
-            Add Family Member
-          </FormBtn>
-        </form>
-        <br></br><br></br><br></br>
-        <div className="collectEvents">
+      <Row>
+        <Col size="md-12">
+          <Jumbotron>
+            <h1>Add Vendors</h1>
+          </Jumbotron>
           <form>
-            {people.length ? (
-              <List>
-                {people.map(person => (
-                  <ListItem key={person._id}>
-                      <strong>
-                        {person.name}
-                      </strong>
-                    <DeleteBtn onClick={() => deleteVendor(person._id)} />
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
+            <Input
+              onChange={handleInputChange}
+              name="name"
+              value={vendorName}
+              placeholder="Name (required)"
+            />
+            <FormBtn onClick={handleFormSubmit}>Add Family Member</FormBtn>
           </form>
-        </div>
-      </Col>
-    </Row>
-  </Container>
-  )
+          <br></br>
+          <br></br>
+          <br></br>
+          <div className="collectEvents">
+            <form>
+              {people.length ? (
+                <List>
+                  {people.map(person => (
+                    <ListItem key={person._id}>
+                      <strong>{person.name}</strong>
+                      <DeleteBtn onClick={() => deleteVendor(person._id)} />
+                    </ListItem>
+                  ))}
+                </List>
+              ) : (
+                <h3>No Results to Display</h3>
+              )}
+            </form>
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  );
 }
 
 export default VendorAdd;
