@@ -10,7 +10,7 @@ import { fb } from "../../utils/firebase";
 import { AuthContext } from "../../App";
 import "./style.css";
 
-const INITIAL_STATE = { vendorName: "" };
+//const INITIAL_STATE = { vendorName: "" };
 
 function VendorAdd() {
   let localIsLogged = React.useContext(AuthContext).isLogged;
@@ -24,7 +24,7 @@ function VendorAdd() {
   }, [localIsLogged]);
 
   function loadVendors() {
-    console.log("loadVendor called");
+    console.log("loadVendors called");
     API.getVendor({ email: fb.auth().currentUser.providerData[0].email })
       .then(res => {
         setPeople(res.data[0].vendors);
@@ -42,6 +42,15 @@ function VendorAdd() {
       .catch(err => console.log(err));
   }
 
+  function addVendor(vname) {
+    API.saveVendor({
+      userEmail: fb.auth().currentUser.providerData[0].email,
+      name: vname
+    })
+      .then()
+      .catch(err => console.log(err));
+  }
+
   function handleInputChange(event) {
       setVendorName(event.target.value);
   };
@@ -54,19 +63,10 @@ function VendorAdd() {
   function handleFormSubmit(event) {
     event.preventDefault();
     if (vendorName) {
-      API.saveVendor({
-        userEmail: fb.auth().currentUser.providerData[0].email,
-        name: vendorName
-      })
-        .then(loadVendors())
-        .then(clearForm)
-        .catch(err => console.log(err));
+      addVendor(vendorName);
+      clearForm();
+      loadVendors();
     }
-    // console.log(values);  // reports {name: somename}
-    // setValues(INITIAL_STATE); // should be {name: ''}
-    // console.log(values); // reports {name: somename}
-    // setValues(values.name = '');
-    // console.log(values); // reports {name: ''}
   }
 
   return (
@@ -103,6 +103,7 @@ function VendorAdd() {
                 <h3>No Results to Display</h3>
               )}
             </form>
+            <button onClick={loadVendors}>call loadVendors()</button>
           </div>
         </Col>
       </Row>

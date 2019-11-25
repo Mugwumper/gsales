@@ -14,11 +14,13 @@ module.exports = {
           { $push: { vendors: doc._id }, 
           new: true }
         )
-        .then(dbModel => res.json(dbModel))
+        .then(function(dbVen) {
+          console.log(dbVen);
+        })
         .catch(function(err) {
           console.log(err);
         });
-        doc => res.json(doc);
+        dbModel => res.json(dbModel);
       })
       .catch(err => console.log(err));
   },

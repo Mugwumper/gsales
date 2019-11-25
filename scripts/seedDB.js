@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const db = require("../models");
 
-// This file empties the Family collection and inserts the people below
+// This file empties the Vendors collection and inserts the people below
 // in order to initially populate the database, 
 // run the following command at the project root: `npm run seed`.
 
@@ -11,14 +11,14 @@ mongoose.connect(
 );
 
 const id1 = new mongoose.Types.ObjectId("5d98c9ab073a76c86a562654");
-const fam1 = new mongoose.Types.ObjectId("5d95ece648a17c63d80dca08");
-const fam2 = new mongoose.Types.ObjectId("5d9694c0f4104658b0a69021");
+const ven1 = new mongoose.Types.ObjectId("5d95ece648a17c63d80dca08");
+const ven2 = new mongoose.Types.ObjectId("5d9694c0f4104658b0a69021");
 const id4 = new mongoose.Types.ObjectId("5d98c9ab073a76c86a562655");
-const fam3 = new mongoose.Types.ObjectId("5d98c9ab073a76c86a562656");
-const fam4 = new mongoose.Types.ObjectId("5d98c9ab073a76c86a562657");
-const fam5 = new mongoose.Types.ObjectId("5d98c9ab073a76c86a562658");
-const fam6 = new mongoose.Types.ObjectId("5d98c9ab073a76c86a562659");
-const fam7 = new mongoose.Types.ObjectId("5d98c9ab073a76c86a562660");
+const ven3 = new mongoose.Types.ObjectId("5d98c9ab073a76c86a562656");
+const ven4 = new mongoose.Types.ObjectId("5d98c9ab073a76c86a562657");
+const ven5 = new mongoose.Types.ObjectId("5d98c9ab073a76c86a562658");
+const ven6 = new mongoose.Types.ObjectId("5d98c9ab073a76c86a562659");
+const ven7 = new mongoose.Types.ObjectId("5d98c9ab073a76c86a562660");
 
 const userSeed = [
   {
@@ -26,13 +26,13 @@ const userSeed = [
     email : "crystal@bell.com",
     password : "1234567",
     vendors : [ 
-      fam1, 
-      fam2,
-      fam3,
-      fam4,
-      fam5,
-      fam6,
-      fam7
+      ven1, 
+      ven2,
+      ven3,
+      ven4,
+      ven5,
+      ven6,
+      ven7
   ]
 },
   {
@@ -42,41 +42,34 @@ const userSeed = [
   }
 ];
 
-const familySeed = [
+const vendorsSeed = [
   {
-    _id : fam1,
-    name : "Jimmy Page",
-    birthday : "1944-01-09"
+    _id : ven1,
+    name : "Jimmy Page"
   },
   {
-    _id : fam2,
-    name: "Kim Jung-un",
-    birthday: "1984-01-08"
+    _id : ven2,
+    name: "Kim Jung-un"
   },
   {
-    _id : fam3,
-    name: "Eddie Murphy",
-    birthday: "1961-04-03"
+    _id : ven3,
+    name: "Eddie Murphy"
   },
   {
-    _id : fam4,
-    name: "Mr Rogers",
-    birthday: "1928-03-20"
+    _id : ven4,
+    name: "Mr Rogers"
   },
   {
-    _id : fam5,
-    name: "Jim Henson",
-    birthday: "1936-09-24"
+    _id : ven5,
+    name: "Jim Henson"
   },
   {
-    _id : fam6,
-    name: "Harrison Ford",
-    birthday: "1942-07-13"
+    _id : ven6,
+    name: "Harrison Ford"
   },
   {
-    _id : fam7,
-    name: "Madonna",
-    birthday: "1958-08-16"
+    _id : ven7,
+    name: "Madonna"
   }
 ];
 
@@ -85,19 +78,17 @@ db.Users
   .then(() => db.Users.collection.insertMany(userSeed))
   .then(data => {
     console.log("Users collection: " + data.result.n + " records inserted!");
-//    process.exit(0);
   })
   .catch(err => {
     console.error(err);
     process.exit(1);
   });
 
-db.Family
+db.Vendors
   .remove({})
-  .then(() => db.Family.collection.insertMany(familySeed))
+  .then(() => db.Vendors.collection.insertMany(vendorsSeed))
   .then(data => {
-    console.log("Family collection: " + data.result.n + " records inserted!");
-  //  process.exit(0);
+    console.log("Vendors collection: " + data.result.n + " records inserted!");
   })
   .catch(err => {
     console.error(err);
